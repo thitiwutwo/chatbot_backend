@@ -1,0 +1,28 @@
+# Ignore all compiled Python files
+*.pyc
+
+# Ignore the virtual environment directory
+venv/
+
+# Ignore the settings file (if it's in a different directory)
+/myproject/settings_local.py
+
+# Ignore the database file (if using SQLite)
+db.sqlite3
+
+# Ignore static files
+/static/
+
+# Ignore media files
+/media/
+
+# Ignore log files
+/logs/
+
+# Ignore any other temporary or development files/directories
+__pycache__/
+*.bak
+*.swp
+*.~*
+
+ngrok.exe
