@@ -14,3 +14,15 @@ class Users(models.Model):
         return self.name
     class Meta:
         verbose_name_plural = "Users"
+
+class Files(models.Model):
+    name = models.CharField(max_length=255)
+    file = models.FileField(upload_to='static/')
+    intent = models.CharField(max_length=255)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    is_deleted = models.BooleanField(default=False)
+    def __str__(self):
+        return self.name
+    class Meta:
+        verbose_name_plural = "Files"

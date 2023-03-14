@@ -7,6 +7,7 @@ from django.contrib.auth.hashers import make_password, check_password
 #django rest framework
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework  import status
 
 #import from app
@@ -72,6 +73,51 @@ def delete_user(request,TID):
             statuscode = status.HTTP_400_BAD_REQUEST
         return Response(data=data, status=statuscode)
     
+@api_view(['POST'])
+def upload_file(request):
+    if request.method == 'POST':
+        # parser_classes = (MultiPartParser, FormParser)
+        serializer = FileSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET'])
+def get_all_files(request):
+    if request.method == 'GET':
+        all_files = Files.objects.all()
+        serializer = FileSerializer(all_files, many=True)
+        for files in serializer.data:
+            image_url = request.scheme + '://' + request.get_host() + files["file"]
+            files["file"] = image_url
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+@api_view(['GET'])
+def get_all_files(request):
+    if request.method == 'GET':
+        all_files = Files.objects.all()
+        serializer = FileSerializer(all_files, many=True)
+        for files in serializer.data:
+            image_url = request.scheme + '://' + request.get_host() + files["file"]
+            files["file"] = image_url
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+@api_view(['GET'])
+def get_file(request, INTENT):
+
+    if request.method == 'GET':
+        try:
+            file = Files.objects.get(intent=INTENT)
+        except Files.DoesNotExist:
+            return JsonResponse({'message': 'File not found'}, status=404)
+        serializer = FileSerializer(file)
+        response = serializer.data
+        image_url = request.scheme + '://' + request.get_host() + response["file"]
+        response["file"] = image_url
+        return Response(response, status=status.HTTP_200_OK)
+
+
 # @api_view(['POST'])
 # def Login(request):
 #     if request.method == 'POST':
@@ -83,3 +129,5 @@ def delete_user(request,TID):
 #             return Response({"message": "user not found"}, status=status.HTTP_400_BAD_REQUEST)
 #     if not serializer.is_valid():
 #         return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+
+
