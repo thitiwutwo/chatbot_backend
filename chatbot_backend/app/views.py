@@ -72,14 +72,14 @@ def delete_user(request,TID):
             statuscode = status.HTTP_400_BAD_REQUEST
         return Response(data=data, status=statuscode)
     
-# @api_view(['POST'])
-# def Login(request):
-#     if request.method == 'POST':
-#         user = Users.objects.get(email = request.data['email'])
-#         serializer = UserSerializer(user)
-#         if user and check_password(request.data['password'], user.password):
-#             return Response({"is_login": True}, status=status.HTTP_200_OK)
-#         else:
-#             return Response({"message": "user not found"}, status=status.HTTP_400_BAD_REQUEST)
-#     if not serializer.is_valid():
-#         return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+@api_view(['POST'])
+def Login(request):
+    if request.method == 'POST':
+        user = Users.objects.get(email = request.data['email'])
+        serializer = UserSerializer(user)
+        if user and check_password(request.data['password'], user.password):
+            return Response({"is_login": True}, status=status.HTTP_200_OK)
+        else:
+            return Response({"message": "user not found"}, status=status.HTTP_400_BAD_REQUEST)
+    if not serializer.is_valid():
+        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
