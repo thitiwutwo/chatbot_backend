@@ -5,7 +5,7 @@ urlpatterns = [
     path('login', Login),
     # CRUD user table
     path('all-user/', all_users),
-    path('post-user', add_user),
+    path('post-user/', add_user),
     path('update-user/<int:UID>', update_user),
     path('delete-user/<int:UID>', delete_user),
 
