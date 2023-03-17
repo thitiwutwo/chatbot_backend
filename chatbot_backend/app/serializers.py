@@ -11,3 +11,18 @@ class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Files
         fields = '__all__'
+
+class ChannelSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Channels
+        fields = '__all__'
+
+
+class ChatSerializer(serializers.ModelSerializer):
+    # channel = ChannelSerializer()
+    class Meta:
+        model = Chats
+        fields = ('__all__')
+
+
