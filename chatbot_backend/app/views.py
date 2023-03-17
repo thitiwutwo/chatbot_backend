@@ -231,7 +231,7 @@ def Login(request):
         user = Users.objects.get(email = request.data['email'])
         serializer = UserSerializer(user)
         if user and check_password(request.data['password'], user.password):
-            return Response({"is_login": True}, status=status.HTTP_200_OK)
+            return Response({"is_login": True, "id": serializer.data['id']}, status=status.HTTP_200_OK)
         else:
             return Response({"message": "user not found"}, status=status.HTTP_400_BAD_REQUEST)
     if not serializer.is_valid():
