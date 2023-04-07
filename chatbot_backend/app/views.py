@@ -168,7 +168,7 @@ def get_channel(request):
 def get_channel_by_id(request, CID):
     if request.method == 'GET':
         try:
-            channel = Channels.objects.get(id=CID)
+            channel = Channels.objects.get(id=CID, is_deleted=False)
             serializer = ChannelSerializer(channel)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except:
@@ -178,7 +178,7 @@ def get_channel_by_id(request, CID):
 def get_channel_by_user(request, UID):
     if request.method == 'GET':
         try:
-            channel = Channels.objects.filter(sender_id=UID)
+            channel = Channels.objects.filter(sender_id=UID, is_deleted=False)
             serializer = ChannelSerializer(channel, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except:
