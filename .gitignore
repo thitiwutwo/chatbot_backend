@@ -25,6 +25,14 @@ __pycache__/
 *.swp
 *.~*
 
+# image pdf files
+.png
+.pdf
+.jpg
+.jpeg
+.gif
+
 ngrok.exe
-*.jpg
 *.png
+*.jpg
+*.pdf
